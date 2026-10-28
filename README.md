@@ -55,7 +55,7 @@ curl http://localhost:3000/host-db
 ## Demo 3 — Container → Container (MongoDB)
 
 ```bash
-# 1. Shared network
+# 1. Shared network(bridge)
 docker network create demo-net
 
 
