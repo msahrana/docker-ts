@@ -1,5 +1,15 @@
 # Docker Communication Demo
 
+---
+
+## Ckeck Mngodb Atlas in local
+
+```Command shel
+net start | findstr Mongo
+```
+
+---
+
 Three endpoints, each showing a different Docker networking pattern.
 
 ---
@@ -16,6 +26,9 @@ docker build -t docker-demo .
 
 ```bash
 docker run -p 3000:3000 docker-demo
+```
+
+```bash
 curl http://localhost:3000/internet
 ```
 
@@ -45,17 +58,21 @@ curl http://localhost:3000/host-db
 # 1. Shared network
 docker network create demo-net
 
+
 # 2. Start MongoDB container
 docker run -d --name mongo-container --network demo-net \
   -e MONGO_INITDB_ROOT_USERNAME=root \
   -e MONGO_INITDB_ROOT_PASSWORD=secret \
   mongo:7
 
+
 # 3. Start app on the same network
 docker run -d --name demo-app --network demo-net -p 3000:3000 \
   -e MONGO_CONTAINER_URI="mongodb://root:secret@mongo-container:27017/demo?authSource=admin" \
   docker-demo
+```
 
+```bash
 curl http://localhost:3000/container-db
 ```
 
